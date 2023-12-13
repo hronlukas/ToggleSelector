@@ -1,0 +1,48 @@
+﻿<Window
+	x:Class="ToggleSelector.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:Controls"
+	mc:Ignorable="d"
+	Title="MainWindow" Height="450" Width="800">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" MinWidth="100" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<StackPanel Orientation="Vertical">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock>Je vybrana</TextBlock>
+				<CheckBox IsChecked="{Binding IsSelected}" IsEnabled="False" />
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock>Vybrana polozka:</TextBlock>
+				<ContentPresenter Content="{Binding SelectedItem}" />
+			</StackPanel>
+		</StackPanel>
+
+		<StackPanel Orientation="Vertical" Grid.Column="1">
+			<!--<ComboBox>
+				<ComboBoxItem Content="zoom" />
+				<ComboBoxItem Content="zoom by window" />
+				<ComboBoxItem Content="pan" />
+			</ComboBox>
+			<local:ToggleSelector x:Name="ts1" ToggleType="RadioButton">
+				<ComboBoxItem Content="zoom" />
+				<ComboBoxItem Content="zoom by window" />
+				<ComboBoxItem Content="pan" />
+			</local:ToggleSelector>-->
+			<ComboBox ItemsSource="{Binding Items}" SelectedValue="{Binding SelectedItem}">
+			</ComboBox>
+			<local:ToggleSelector x:Name="ts1" ToggleType="CheckBox"
+								  ItemsSource="{Binding Items}" SelectedValue="{Binding SelectedItem}"
+								  IsChecked="{Binding IsSelected}">
+			</local:ToggleSelector>
+
+		</StackPanel>
+
+	</Grid>
+</Window>
