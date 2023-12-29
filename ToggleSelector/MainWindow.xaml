@@ -9,10 +9,19 @@
 	mc:Ignorable="d"
 	Title="MainWindow" Height="450" Width="800">
 	<Window.Resources>
+		<Path x:Key="p1" StrokeThickness="1" Stroke="Red" Fill="Red" x:Shared="false">
+			<Path.Data>M0,0 10,10 10,0</Path.Data>
+		</Path>
+		<Path x:Key="p2" StrokeThickness="1" Stroke="Green" Fill="Green" x:Shared="false">
+			<Path.Data>M0,0 10,10 0,10</Path.Data>
+		</Path>
+		<Path x:Key="p3" StrokeThickness="1" Stroke="Blue" Fill="Blue" x:Shared="false">
+			<Path.Data>M0,0 10,10 10,0</Path.Data>
+		</Path>
 		<x:Array x:Key="Items" Type="local:ListItemData">
-			<local:ListItemData Value="zoom" DisplayValue="Zoom" />
-			<local:ListItemData Value="zoom by window" DisplayValue="Zoom by Window" />
-			<local:ListItemData Value="pan" DisplayValue="Pan" />
+			<local:ListItemData Value="zoom" DisplayValue="Zoom" Image="{StaticResource p1}" />
+			<local:ListItemData Value="zoom by window" DisplayValue="Zoom by Window" Image="{StaticResource p2}" />
+			<local:ListItemData Value="pan" DisplayValue="Pan" Image="{StaticResource p3}" />
 		</x:Array>
 	</Window.Resources>
 	<Grid>
@@ -33,13 +42,46 @@
 		</StackPanel>
 
 		<StackPanel Orientation="Vertical" Grid.Column="1">
-			<ComboBox SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}" DisplayMemberPath="DisplayValue" SelectedValuePath="Value" />
-			<controls:ToggleSelector ToggleType="RadioButton" SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}" DisplayMemberPath="DisplayValue" SelectedValuePath="Value" />
+			<ComboBox SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
+					  DisplayMemberPath="DisplayValue" SelectedValuePath="Value" />
+			<ComboBox SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
+					  SelectedValuePath="Value">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<ContentPresenter Content="{Binding Image, Converter={x:Static local:XamlCloneConverter.Instance}}" />
+							<TextBlock Text="{Binding DisplayValue}" />
+						</StackPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+			<!--<controls:ToggleSelector ToggleType="RadioButton"
+									 SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
+									 DisplayMemberPath="DisplayValue" SelectedValuePath="Value"
+									 IsChecked="{Binding IsSelected2}" GroupName="myGroup" />-->
+			<controls:ToggleSelector ToggleType="CheckBox"
+									SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
+									SelectedValuePath="Value"
+									IsChecked="{Binding IsSelected}" GroupName="myGroup">
+				<controls:ToggleSelector.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<ContentPresenter Content="{Binding Image, Converter={x:Static local:XamlCloneConverter.Instance}}" />
+							<TextBlock Text="{Binding DisplayValue}" />
+						</StackPanel>
+					</DataTemplate>
+				</controls:ToggleSelector.ItemTemplate>
+			</controls:ToggleSelector>
+			<RadioButton GroupName="myGroup" IsChecked="{Binding IsSelected2}">Selected 2</RadioButton>
 			<Separator />
 			<ComboBox ItemsSource="{Binding Items}" SelectedValue="{Binding SelectedItem}" />
 			<controls:ToggleSelector ToggleType="CheckBox"
 								  ItemsSource="{Binding Items}" SelectedValue="{Binding SelectedItem}"
 								  IsChecked="{Binding IsSelected}" />
+
+			<ContentPresenter Content="{StaticResource p1}" />
+			<ContentPresenter Content="{StaticResource p2}" />
+			<ContentPresenter Content="{StaticResource p1}" />
 		</StackPanel>
 
 	</Grid>

@@ -2,6 +2,13 @@
 
 namespace ToggleSelector
 {
+	//public enum ViewType
+	//{
+	//	Zoom,
+	//	ZoomByWindow,
+	//	Pan,
+	//}
+
 	public class ViewModel : INotifyPropertyChanged
 	{
 		public List<string> Items { get; } = new List<string>
@@ -35,6 +42,20 @@ namespace ToggleSelector
 				{
 					selected = value;
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
+				}
+			}
+		}
+
+		private bool selected2 = true;
+		public bool IsSelected2
+		{
+			get => selected2;
+			set
+			{
+				if (selected2 != value)
+				{
+					selected2 = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected2)));
 				}
 			}
 		}

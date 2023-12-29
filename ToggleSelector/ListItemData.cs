@@ -16,6 +16,8 @@
 
 		public object DisplayValue { get; set; }
 
+		public object Image { get; set; }
+
 		public object ToolTip { get; set; }
 	}
 }
