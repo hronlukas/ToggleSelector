@@ -2,12 +2,11 @@
 
 namespace ToggleSelector
 {
-	//public enum ViewType
-	//{
-	//	Zoom,
-	//	ZoomByWindow,
-	//	Pan,
-	//}
+	public enum MyEnumType
+	{
+		FirstOption,
+		SecondOption,
+	}
 
 	public class ViewModel : INotifyPropertyChanged
 	{
@@ -46,8 +45,8 @@ namespace ToggleSelector
 			}
 		}
 
-		private bool selected2 = true;
-		public bool IsSelected2
+		private MyEnumType selected2 = MyEnumType.FirstOption;
+		public MyEnumType IsSelected2
 		{
 			get => selected2;
 			set

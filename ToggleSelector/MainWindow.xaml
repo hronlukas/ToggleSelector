@@ -26,7 +26,7 @@
 	</Window.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" MinWidth="100" />
+			<ColumnDefinition Width="200" MinWidth="100" />
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 
@@ -39,12 +39,16 @@
 				<TextBlock>Vybrana polozka:</TextBlock>
 				<ContentPresenter Content="{Binding SelectedItem}" />
 			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock>Vybrana volba:</TextBlock>
+				<ContentPresenter Content="{Binding IsSelected2}" />
+			</StackPanel>
 		</StackPanel>
 
 		<StackPanel Orientation="Vertical" Grid.Column="1">
 			<ComboBox SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
 					  DisplayMemberPath="DisplayValue" SelectedValuePath="Value" />
-			<ComboBox SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
+			<!--<ComboBox SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
 					  SelectedValuePath="Value">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
@@ -54,30 +58,40 @@
 						</StackPanel>
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
-			</ComboBox>
+			</ComboBox>-->
 			<!--<controls:ToggleSelector ToggleType="RadioButton"
 									 SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
 									 DisplayMemberPath="DisplayValue" SelectedValuePath="Value"
 									 IsChecked="{Binding IsSelected2}" GroupName="myGroup" />-->
-			<controls:ToggleSelector ToggleType="CheckBox"
+			<controls:ToggleSelector ToggleType="RadioButton"
 									SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
 									SelectedValuePath="Value"
-									IsChecked="{Binding IsSelected}" GroupName="myGroup">
+									IsChecked="{Binding IsSelected2, Converter={x:Static local:EnumToBooleanConverter.Instance}, ConverterParameter={x:Static local:MyEnumType.FirstOption}}" GroupName="myGroup">
 				<controls:ToggleSelector.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal">
 							<ContentPresenter Content="{Binding Image, Converter={x:Static local:XamlCloneConverter.Instance}}" />
-							<TextBlock Text="{Binding DisplayValue}" />
+							<!--<TextBlock Text="{Binding DisplayValue}" />-->
 						</StackPanel>
 					</DataTemplate>
 				</controls:ToggleSelector.ItemTemplate>
 			</controls:ToggleSelector>
-			<RadioButton GroupName="myGroup" IsChecked="{Binding IsSelected2}">Selected 2</RadioButton>
+			<RadioButton GroupName="myGroup" IsChecked="{Binding IsSelected2, Converter={x:Static local:EnumToBooleanConverter.Instance}, ConverterParameter={x:Static local:MyEnumType.SecondOption}}">Selected 2</RadioButton>
 			<Separator />
 			<ComboBox ItemsSource="{Binding Items}" SelectedValue="{Binding SelectedItem}" />
 			<controls:ToggleSelector ToggleType="CheckBox"
-								  ItemsSource="{Binding Items}" SelectedValue="{Binding SelectedItem}"
-								  IsChecked="{Binding IsSelected}" />
+									SelectedValue="{Binding SelectedItem}" ItemsSource="{StaticResource Items}"
+									SelectedValuePath="Value"
+									IsChecked="{Binding IsSelected}">
+				<controls:ToggleSelector.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<ContentPresenter Content="{Binding Image, Converter={x:Static local:XamlCloneConverter.Instance}}" />
+							<!--<TextBlock Text="{Binding DisplayValue}" />-->
+						</StackPanel>
+					</DataTemplate>
+				</controls:ToggleSelector.ItemTemplate>
+			</controls:ToggleSelector>
 
 			<ContentPresenter Content="{StaticResource p1}" />
 			<ContentPresenter Content="{StaticResource p2}" />
